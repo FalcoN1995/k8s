@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: myapp-rs-readiness
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: readiness
+  template:
+    metadata:
+      labels:
+        app: readiness
+    spec: 
+      containers:
+      - name: myapp
+        image: httpd
+        readinessProbe:
+          exec:
+            command:
+              - ls
+              - /usr/local/apache/htdocs/ready
+        ports:
+        - containerPort: 8080

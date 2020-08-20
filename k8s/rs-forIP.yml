@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: rs-ip
+spec:
+  replicas: 3
+  selector: 
+    matchExpressions:
+      - key: ip
+        operator: Exists
+  template:
+    metadata: 
+      labels:
+        ip: rs
+    spec:
+      containers:
+      - image: c1t1d0s7/myweb
+        name: rs-ip
+        ports:
+        - name: myweb-port
+          containerPort: 8080
+          protocol: TCP

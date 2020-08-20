@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: rs-lb
+spec:
+  replicas: 3
+  selector: 
+    matchExpressions:
+      - key: lb
+        operator: Exists
+  template:
+    metadata: 
+      labels:
+        lb: rs
+    spec:
+      containers:
+      - image: c1t1d0s7/myweb
+        name: rs-lb
+        ports:
+        - name: myweb-port
+          containerPort: 8080
+          protocol: TCP

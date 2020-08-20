@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-rs-headless
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: headless
+  template: 
+    metadata:
+      labels: 
+        app: headless
+    spec:
+      containers:
+      - name: myapp
+        image: c1t1d0s7/myweb
+        ports:
+        - containerPort: 8080

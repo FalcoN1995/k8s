@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: rstest
+spec:
+  replicas: 3
+  selector: 
+    matchExpressions:
+      - key: app
+        operator: Exists
+  template:
+    metadata: 
+      labels:
+        app: web
+    spec:
+      containers:
+      - image: c1t1d0s7/myweb
+        name: rstest
+        ports:
+        - name: myweb-port
+          containerPort: 8080
+          protocol: TCP

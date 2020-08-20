@@ -1,0 +1,21 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ing-mhost
+spec:
+  rules:
+  - host: apache.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: apache-svc
+          servicePort: 80
+  - host: nginx.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-svc
+          servicePort: 80

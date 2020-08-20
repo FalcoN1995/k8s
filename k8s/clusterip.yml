@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusterip
+  labels:
+    http: web
+spec:
+  type: ClusterIP
+  selector:
+    http: web
+  ports:
+    - name: httpdport
+      port: 81
+      protocol: TCP
+      targetPort: httpd-port

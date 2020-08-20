@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: httpd
+spec:
+  replicas: 3
+  selector: 
+    matchExpressions:
+      - key: httpd
+        operator: Exists
+  template:
+    metadata: 
+      labels:
+        httpd: web
+    spec:
+      containers:
+      - image: httpd
+        name: httpd
+        ports:
+        - name: httpd-port
+          containerPort: 80
+          protocol: TCP

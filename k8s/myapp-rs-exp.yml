@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: myapp-rs-exp
+spec:
+  replicas: 3
+  selector: 
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - myapp-rs-exp
+          - test
+      - key: env
+        operator: Exists
+  template:
+    metadata: 
+      labels:
+        app: myapp-rs-exp
+        env: dev
+    spec:
+      containers:
+      - image: c1t1d0s7/myweb
+        name: mynapp
+        ports:
+        - containerPort: 8080

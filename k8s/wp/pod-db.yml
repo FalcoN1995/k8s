@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wp-db
+  labels:
+    app: mysql
+spec:
+  containers:
+  - image: mysql:5.7
+    name: wp-db
+    env:
+      - name: MYSQL_ROOT_PASSWORD
+        value: dkagh1.
+      - name: MYSQL_DATABASE
+        value: wordpress
+      - name: MYSQL_USER
+        value: wp-admin
+      - name: MYSQL_PASSWORD
+        value: dkagh2.
+    ports:
+    - containerPort: 3306
+      name: mysql
+    volumeMounts:
+    - name: mysql-pv
+      mountPath: /var/lib/mysql
+      subPath: mysql
+  volumes:
+  - name: mysql-pv
+    persistentVolumeClaim:
+      claimName: wp-db-pvc
